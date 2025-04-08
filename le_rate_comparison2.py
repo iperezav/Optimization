@@ -18,7 +18,7 @@ Niter = 100
 # Neighborhood around the initial point x0 where all the iterations must lie
 x = np.linspace(x0-delta, x0+delta, N0points)
 # Function to minimize
-fx = x**2
+fx = np.sin(x)
 # Number of learning rates
 Nlines = 10
 # List of learning rates
