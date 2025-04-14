@@ -1,12 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 
-x0 = np.array([0.27,0.3], dtype= float)
+
+x0 = np.array([0.5,0.3], dtype= float)
 eps = float(1e-4)
 delta = 1e-1
-N0points = 1000
+#N0points = 1000
 Niter = 1000
 gamma = float(0.01)
 #x_1 = np.linspace(x0[0]-delta, x0[0]+delta, N0points)
@@ -38,10 +38,10 @@ def my_interpolation(x0, x_1, x_2, fx):
     beta_x = (x0[0]-x_1[x_index-1])/length_size_x
     alpha_y = (x_2[y_index]-x0[1])/length_size_y
     beta_y = (x0[1]-x_2[y_index - 1])/length_size_y
-    fx_inter1_x = alpha_x*fx[x_index, y_index]+beta_x*fx[x_index-1, y_index]
-    fx_inter1_y = alpha_y*fx[x_index, y_index]+beta_y*fx[x_index, y_index-1]
-    fx_inter2_x = alpha_x*fx[x_index, y_index-1] + beta_x*fx[x_index - 1, y_index - 1]
-    fx_inter2_y = alpha_y*fx[x_index - 1, y_index] + beta_y*fx[x_index - 1, y_index - 1]
+    fx_inter1_x = alpha_x*fx[y_index, x_index]+beta_x*fx[y_index, x_index-1]
+    fx_inter1_y = alpha_y*fx[y_index, x_index]+beta_y*fx[y_index-1, x_index]
+    fx_inter2_x = alpha_x*fx[y_index-1, x_index] + beta_x*fx[y_index - 1, x_index - 1]
+    fx_inter2_y = alpha_y*fx[y_index, x_index - 1] + beta_y*fx[y_index - 1, x_index - 1]
     return 0.25*fx_inter1_x + 0.25*fx_inter1_y + 0.25*fx_inter2_x + 0.25*fx_inter2_y
 
 
@@ -67,7 +67,7 @@ def grad(x_1, x_2, fx, x0):
 
 
 x_list = x0
-y_list = x0[0]**2 + x0[1]**2
+y_list = my_interpolation(x0, x_1, x_2, fx)
 
 for i in np.arange(Niter):
     dx, fx0 = grad(x_1, x_2, fx, x0)
@@ -90,7 +90,7 @@ plt_fx = plt_xx_1**2+plt_xx_2**2
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-surf = ax.plot_surface(plt_xx_1, plt_xx_2, plt_fx, cmap='viridis', alpha=0.4)
+surf = ax.plot_surface(plt_xx_1, plt_xx_2, plt_fx, cmap='viridis', alpha=0.6)
 
 # Add labels and a color bar
 ax.set_title("3D Surface Plot of f(x) = x₁² + x₂² with Optimization Path")
