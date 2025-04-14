@@ -27,7 +27,7 @@ fx = xx_1**2+xx_2**2
 def my_interpolation2(x0,x_1,x_2,fx):
     x_index = np.searchsorted(x_1, x0[0])
     y_index = np.searchsorted(x_2, x0[1])
-    return fx[x_index-1, y_index-1]
+    return fx[y_index-1, x_index-1]
 
 def my_interpolation(x0, x_1, x_2, fx):
     x_index = np.searchsorted(x_1, x0[0])
