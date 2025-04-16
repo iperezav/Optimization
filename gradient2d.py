@@ -3,22 +3,23 @@ import matplotlib.pyplot as plt
 
 
 
-x0 = np.array([0.5,0.3], dtype= float)
+x0 = np.array([1.1,1.1], dtype= float)
 eps = float(1e-4)
-delta = 1e-1
+delta = 1e-5
 #N0points = 1000
 Niter = 1000
-gamma = float(0.01)
+gamma = float(0.0001)
 #x_1 = np.linspace(x0[0]-delta, x0[0]+delta, N0points)
 #x_2 = np.linspace(x0[1]-delta, x0[1]+delta, N0points)
-x_1 = np.arange(-0.00001, x0[0]+delta, step = eps)
-x_2 = np.arange(-0.00001, x0[1]+delta, step = eps)
-
+#x_1 = np.arange(-0.00001, x0[0]+delta, step = eps)
+#x_2 = np.arange(-0.00001, x0[1]+delta, step = eps)
+x_1 = np.arange(-0.2, x0[0]+0.1, step = eps)
+x_2 = np.arange(-0.2, x0[1]+0.1, step = eps)
 
 xx_1, xx_2 = np.meshgrid(x_1, x_2)
 
 fx = xx_1**2+xx_2**2
-
+#fx = 100*(xx_2-xx_1**2)**2 + (1-xx_1)**2
 
 
 
@@ -76,17 +77,18 @@ for i in np.arange(Niter):
     y_list = np.vstack([y_list, fx0])
 
 
-print(y_list)
+print(x_list)
 
 
 
-plt_x_1 = np.linspace(-1, 1, 1000)
-plt_x_2 = np.linspace(-1, 1, 1000)
+plt_x_1 = np.linspace(-2, 2, 1000)
+plt_x_2 = np.linspace(-2, 2, 1000)
 
 
 plt_xx_1, plt_xx_2 = np.meshgrid(plt_x_1, plt_x_2)
 
 plt_fx = plt_xx_1**2+plt_xx_2**2
+#plt_fx = 100*(plt_xx_2-plt_xx_1**2)**2 + (1-plt_xx_1)**2
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
