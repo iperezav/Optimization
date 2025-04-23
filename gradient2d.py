@@ -81,8 +81,8 @@ print(x_list)
 
 
 
-plt_x_1 = np.linspace(-2, 2, 1000)
-plt_x_2 = np.linspace(-2, 2, 1000)
+plt_x_1 = np.linspace(-2, 2, 20)
+plt_x_2 = np.linspace(-2, 2, 20)
 
 
 plt_xx_1, plt_xx_2 = np.meshgrid(plt_x_1, plt_x_2)
