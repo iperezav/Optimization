@@ -20,11 +20,13 @@ def obj_func(x):
 
 # derivative
 def deriv_i(x0, i):
+    xbh = np.copy(x0)
+    xbh[i] = xbh[i] -eps
     fx0 = obj_func(x0)
-    x1 = x0
-    x1[i] = x0[i] + eps
-    fx1 = obj_func(x1)
-    return (fx1-fx0)/eps
+    xfh = np.copy(x0)
+    xfh[i] = xfh[i] + eps
+    fx1 = obj_func(xfh)
+    return (fx1-fx0)/(2*eps)
 
 # gradient
 def grad(x0):
@@ -33,7 +35,7 @@ def grad(x0):
     return np.array([df0, df1])
 
 # initiate the iteration list
-x_list = x0
+x_list = np.copy(x0)
 
 # learning
 for i in np.arange(Niter):

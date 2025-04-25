@@ -20,11 +20,13 @@ def obj_func(x):
 
 # derivative
 def deriv_i(x0, i):
-    fx0 = obj_func(x0)
-    x1 = x0
-    x1[i] = x0[i] + eps
-    fx1 = obj_func(x1)
-    return (fx1-fx0)/eps
+    xbh = np.copy(x0)
+    xbh[i] = xbh[i] - eps
+    fx0 = obj_func(xbh)
+    xfh = np.copy(x0)
+    xfh[i] = xfh[i] + eps
+    fx1 = obj_func(xfh)
+    return (fx1-fx0)/(2*eps)
 
 # gradient
 def grad(x0):

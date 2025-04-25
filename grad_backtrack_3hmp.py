@@ -1,8 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 # initial point
-x0 = np.array([-5, -5], dtype = float)
+x0 = np.array([1.2, 1.5], dtype = float)
 # size to compute derivative
 eps = float(1e-13)
 # learning iterations
@@ -14,17 +15,17 @@ beta = float(1e-3)
 # learning shrink rate
 c_le = 0.5
 # equilibrium
-eq = np.array([3,2], dtype = float)
+eq = np.array([0,0], dtype = float)
 
-# Himmelblau's function
+# 3-hump camel function
 def obj_func(x):
-    return (x[0]**2 + x[1] - 11)**2 + (x[0] + x[1]**2 - 7)**2
+    return 2*x[0]**2 - 1.05*x[0]**4 + x[0]**6/6 + x[0]*x[1] + x[1]**2
 
 # derivative
 def deriv_i(x0, i):
     xbh = np.copy(x0)
     xbh[i] = xbh[i] - eps
-    fx0 = obj_func(xbh)
+    fx0 = obj_func(x0)
     x1 = np.copy(x0)
     x1[i] = x1[i] + eps
     fx1 = obj_func(x1)
@@ -64,12 +65,12 @@ print(x_list)
 
 y_list = np.apply_along_axis(obj_func, 1, x_list)
 
-plt_x_1 = np.linspace(-10, 10, 20)
-plt_x_2 = np.linspace(-10, 10, 20)
+plt_x_1 = np.linspace(-2, 2, 20)
+plt_x_2 = np.linspace(-2, 2, 20)
 
 plt_xx_1, plt_xx_2 = np.meshgrid(plt_x_1, plt_x_2)
 
-plt_fx = (plt_xx_1 ** 2 + plt_xx_2 - 11) ** 2 + (plt_xx_1 + plt_xx_2 ** 2 - 7) ** 2
+plt_fx = 2*plt_xx_1**2 - 1.05*plt_xx_1**4 + plt_xx_1**6/6 + plt_xx_1*plt_xx_2 + plt_xx_2**2
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
@@ -83,6 +84,7 @@ ax.set_xlabel("$x_1$", fontsize=12)
 ax.set_ylabel("$x_2$", fontsize=12)
 ax.set_zlabel("$f(x)$", fontsize=12)
 fig.colorbar(surf, ax=ax, shrink=0.5, aspect=5)
+
 
 # Plot optimization path
 ax.plot(x_list[:, 0], x_list[:, 1], y_list.flatten(), color='red', linestyle='--', marker='o',
